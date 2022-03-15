@@ -12,7 +12,7 @@ def bomp(S, X, T, r, sigma, n: np.int, o_type: str = "C"):
     :param sigma: underlying volatility
     :param n: height of the binomial tree
     :param o_type: option's type, "C" for a call option "P" for a put option
-    :return: lower triangular matrix (n+1)x(n+1) that contains the option price at each node of the binomial tree
+    :return: lower triangular matrix (n+1 x n+1) that contains the option price at each node of the binomial tree
     """
     delta_t = T / n
     up = np.exp(sigma * np.sqrt(delta_t))

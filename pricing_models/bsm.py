@@ -4,6 +4,26 @@ import numpy as np
 from scipy import stats
 
 
+def geo_paths(S, T, r, q, sigma, steps: int, N: int):
+    """
+    Generate Geometric Brownian Motion
+
+    :param S: underlying intial price
+    :param T: time to maturity (in years)
+    :param r: interest rate
+    :param q: dividend yield
+    :param sigma: underlying volatility
+    :param steps: number of steps in the simulation
+    :param N: number of simulations
+    :return: matrix (steps x N) of assets paths
+    """
+    dt = T / steps
+    ST = np.log(S) + np.cumsum(((r - q - sigma ** 2 / 2) * dt + sigma * np.sqrt(dt) * np.random.normal(size=(steps, N))),
+                               axis=0)
+
+    return np.exp(ST)
+
+
 def get_d1_d2(S, X, T, t, r, sigma) -> Tuple[np.single, np.single]:
     """
     Compute d1 and d2 values for the black-scholes pricing model
