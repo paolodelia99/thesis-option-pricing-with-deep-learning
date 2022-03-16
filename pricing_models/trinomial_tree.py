@@ -26,6 +26,12 @@ def t_option_tree(prices: np.array, X: np.single, n, delta_t, r, p_up, p_down, p
         for j in range(0, i + 1):
             option_p[i, j] = np.exp(-r * delta_t) * (
                     p_up * option_p[i + 1, j + 1] + p_down * option_p[i + 1, j - 1] + p_mid * option_p[i + 1, j])
+            # if type_ == 'C':
+            #     option_p[i, j] = np.maximum(prices[i, j] - X, np.exp(-r * delta_t) * (
+            #             p_up * option_p[i + 1, j + 1] + p_down * option_p[i + 1, j - 1] + p_mid * option_p[i + 1, j]))
+            # else:
+            #     option_p[i, j] = np.maximum(X - prices[i, j], np.exp(-r * delta_t) * (
+            #             p_up * option_p[i + 1, j + 1] + p_down * option_p[i + 1, j - 1] + p_mid * option_p[i + 1, j]))
 
     return option_p
 
