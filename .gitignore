@@ -6,3 +6,5 @@ data/
 .idea/
 
 test_pricing_models.ipynb
+
+tests/.pytest_cache
