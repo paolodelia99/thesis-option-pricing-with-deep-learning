@@ -25,7 +25,7 @@ def mc_pricing_european(prices: np.array, X, T, r, type_="C") -> np.single:
         raise ValueError("type_ must be 'put' or 'call'")
 
 
-def process_ith_day(i, prices, strike, reg, type_: str = 'C'):
+def process_ith_day(i, prices, strike, reg, r_daily, T, type_: str = 'C'):
     def update_fv(row):
         if row['if_execute']:
             return row['execution_value'] * (1 + r_daily) ** (T - i)
@@ -78,6 +78,6 @@ def mc_pricing_american(prices: np.array, X, T, r, N, type_="C") -> np.single:
     prices_df['executed_on'] = N -1
 
     for day in range(60 - 1, 0, -1):
-        process_ith_day(day, prices_df, X, reg, type_)
+        process_ith_day(day, prices_df, X, reg, r_daily, T, type_)
 
     return prices_df['option_value_at_maturity'].mean() * (1+r_daily)**(-0.16666)
