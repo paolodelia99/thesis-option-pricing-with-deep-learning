@@ -37,6 +37,18 @@ def t_option_tree(prices: np.array, X: np.single, n, delta_t, r, p_up, p_down, p
 
 
 def topm(S, X, T, r, sigma, n: np.int, type_: str = "C"):
+    """
+    Compute the american option price using the trinomial option pricing model
+
+    :param S: underlying price
+    :param X: option's strike price
+    :param T: time to maturity
+    :param r: annual interest rate
+    :param sigma: underlying volatility
+    :param n: height of the trinomial tree
+    :param type_: option's type, "C" for a call option "P" for a put option
+    :return: np.single which is the price of the american option
+    """
     delta_t = T / n
     up = exp(sigma * np.sqrt(2 * delta_t))
     down = 1 / up
