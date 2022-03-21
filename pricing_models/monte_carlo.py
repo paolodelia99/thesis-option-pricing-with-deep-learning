@@ -57,7 +57,7 @@ def process_ith_day(i, prices, strike, reg, r_daily, T, type_: str = 'C'):
     prices.loc[day_i[day_i['if_execute'] == True].index, 'executed_on'] = i
 
 
-def mc_pricing_american(prices: np.array, X, T, r, N, type_="C") -> np.single:
+def mc_pricing_american(prices: np.array, X, T, r, steps, type_="C") -> np.single:
     """
     Compute the american option price given the prices path
 
@@ -65,19 +65,20 @@ def mc_pricing_american(prices: np.array, X, T, r, N, type_="C") -> np.single:
     :param X: option's strike price
     :param T: time to maturity (in years)
     :param r: interest rate
+    :param steps: 
     :param type_: option's type
     :return:
     """
-    r_daily = (r * T) / N
+    r_daily = (r * T) / steps
     reg = LinearRegression()
 
     prices_df = pd.DataFrame(prices)
-    prices_df['payoff_at_maturity'] = prices_df[N-1] - X
+    prices_df['payoff_at_maturity'] = prices_df[steps - 1] - X
     prices_df['payoff_at_maturity'] = prices_df['payoff_at_maturity'].apply(lambda x: max(x, 0))
     prices_df['option_value_at_maturity'] = prices_df['payoff_at_maturity']
-    prices_df['executed_on'] = N -1
+    prices_df['executed_on'] = steps - 1
 
-    for day in range(60 - 1, 0, -1):
+    for day in range(steps - 1, 0, -1):
         process_ith_day(day, prices_df, X, reg, r_daily, T, type_)
 
-    return prices_df['option_value_at_maturity'].mean() * (1+r_daily)**(-0.16666)
+    return prices_df['option_value_at_maturity'].mean() * (1 + r_daily) ** (-0.16666)

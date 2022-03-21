@@ -5,17 +5,17 @@ def generate_heston_path(S, T, r, kappa, theta, v_0, rho, xi,
                          steps, n_paths, return_vol: bool = False):
     """
     
-    :param S: 
-    :param T: 
-    :param r: 
-    :param kappa: 
-    :param theta: 
-    :param v_0: 
-    :param rho: 
-    :param xi: 
-    :param steps: 
-    :param n_paths: 
-    :param return_vol: 
+    :param S: Underlying price at time t=0
+    :param T: Time to Expiration (in years)
+    :param r: Interest Free rate
+    :param kappa: rate of mean reversion
+    :param theta: long run average variance
+    :param v_0: Volatility at time t=0
+    :param rho: instantaneous correlation of the Weiner processes
+    :param xi: volatility of volatility
+    :param steps: number of steps of the simulation
+    :param n_paths: number of simulations
+    :param return_vol: return volatility
     :return: 
     """
     dt = T / steps

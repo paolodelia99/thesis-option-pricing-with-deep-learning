@@ -5,6 +5,14 @@ sqrt = np.sqrt
 
 
 def t_price_tree(S0, n, up, down):
+    """
+
+    :param S0:
+    :param n:
+    :param up:
+    :param down:
+    :return:
+    """
     prices = np.zeros((n + 1, n * 2 + 1))
 
     for i in range(n + 1):
@@ -15,6 +23,19 @@ def t_price_tree(S0, n, up, down):
 
 
 def t_option_tree(prices: np.array, X: np.single, n, delta_t, r, p_up, p_down, p_mid, type_: str):
+    """
+
+    :param prices:
+    :param X:
+    :param n:
+    :param delta_t:
+    :param r:
+    :param p_up:
+    :param p_down:
+    :param p_mid:
+    :param type_:
+    :return:
+    """
     option_p = np.zeros((n + 1, n * 2 + 1))
 
     if type_ == "C":
