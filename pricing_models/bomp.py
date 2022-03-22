@@ -1,7 +1,7 @@
 import numpy as np
 
 
-def price_tree(S: np.single, n: int, up: np.single) -> np.array:
+def binom_price_tree(S: np.single, n: int, up: np.single) -> np.array:
     """
     Compute binomial price tree
 
@@ -19,7 +19,7 @@ def price_tree(S: np.single, n: int, up: np.single) -> np.array:
     return prices
 
 
-def option_tree(prices: np.array, X: np.single, n: int, delta_t: np.single, r: np.single, p: np.single, type_: str):
+def binom_option_tree(prices: np.array, X: np.single, n: int, delta_t: np.single, r: np.single, p: np.single, type_: str):
     """
 
     :param prices: binomial price tree
@@ -61,8 +61,8 @@ def bomp(S, X, T, r, sigma, n: np.int, type_: str = "C"):
     up = np.exp(sigma * np.sqrt(delta_t))
     p = (np.exp(r * delta_t) - (1 / up)) / (up - (1 / up))
 
-    prices = price_tree(S, n, up)
+    prices = binom_price_tree(S, n, up)
 
-    option_p = option_tree(prices=prices, X=X, n=n, delta_t=delta_t, r=r, p=p, type_=type_)
+    option_p = binom_option_tree(prices=prices, X=X, n=n, delta_t=delta_t, r=r, p=p, type_=type_)
 
     return option_p[0, 0]

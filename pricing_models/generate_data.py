@@ -4,7 +4,7 @@ from typing import Tuple
 import numpy as np
 import pandas as pd
 
-from pricing_models.bomp import bomp
+from pricing_models.bomp import bomp, binom_price_tree, binom_option_tree
 from pricing_models.bsm import geo_paths
 from pricing_models.heston import generate_heston_path
 from pricing_models.monte_carlo import mc_pricing_american
@@ -12,6 +12,7 @@ from pricing_models.trinomial_tree import topm
 
 
 def params_ranges(S,
+                  strike_step: float = 1.0,
                   vol_range: Tuple[float, float, float] = (0.02, 1.02, 0.02),
                   interest_range: Tuple[float, float, float] = (0.002, 0.1, 0.01),
                   tau_range: Tuple[float, float, float] = (0.15, 1.1, 0.02)) -> Tuple[
@@ -19,13 +20,14 @@ def params_ranges(S,
     """
     Generate ranges for strike prices, volatility, interest rates and time to expiration
 
+    :param strike_step:
     :param S: the underlying price
     :param vol_range: (start_vol, end_vol, step_vol) for the volatility range
     :param interest_range: (start_vol, end_vol, step_vol) for the volatility range
     :param tau_range: (start_vol, end_vol, step_vol) for the volatility range
     :return: (strike_range, volatility_range, interest_rates_range, time_to_expiration_range)
     """
-    strikes = np.arange(S - S // 3, S * 2 + 1, 1)
+    strikes = np.arange(S - S // 3, S * 2 + 1, strike_step)
     vols = np.arange(vol_range[0], vol_range[1], vol_range[2])
     interests = np.arange(interest_range[0], interest_range[1], interest_range[2])
     taus = np.arange(tau_range[0], tau_range[1], tau_range[2])
@@ -33,7 +35,7 @@ def params_ranges(S,
     return strikes, vols, interests, taus
 
 
-def generate_binom_option_chain(S, T, r, sigma, type_: str) -> pd.DataFrame:
+def generate_binom_option_chain(S, T, r, sigma, type_: str, strike_step:float = 1.0) -> pd.DataFrame:
     """
     Generate the option chain using the binomial tree model given the price of the underlying at time 0, the time to
     expiration, the interest free rate and the underlying volatility
@@ -43,14 +45,21 @@ def generate_binom_option_chain(S, T, r, sigma, type_: str) -> pd.DataFrame:
     :param r: interest free rate
     :param sigma: underlying volatility
     :param type_: option's type: 'C' for a call 'P' for a put
+    :param strike_step:
     :return: pandas DataFrame containing the option chain
     """
-    strikes = np.arange(S // 2, S * 2 + 1, 0.5)
+    n = int(np.floor(365 * T))
+    strikes = np.arange(S // 2, S * 2 + 1, strike_step)
     option_chain = pd.DataFrame(
         columns=['Price', 'Strike', 'Type', 'Vol', 'Interest Rate', 'Time to Expiration', 'Option Price'])
 
+    delta_t = T / n
+    up = np.exp(sigma * np.sqrt(delta_t))
+    p = (np.exp(r * delta_t) - (1 / up)) / (up - (1 / up))
+    price_tree = binom_price_tree(S, n, up)
+
     for strike in strikes:
-        price = bomp(S, strike, T, r, sigma, int(np.floor(365 * T)), type_)
+        price = binom_option_tree(price_tree, strike, n, delta_t, r, p, type_)[0, 0]
         option_chain = option_chain.append(
             {'Price': S, 'Strike': strike, 'Type': type_, 'Vol': sigma, 'Interest Rate': r, 'Time to Expiration': T,
              'Option Price': price}, ignore_index=True)
@@ -58,23 +67,37 @@ def generate_binom_option_chain(S, T, r, sigma, type_: str) -> pd.DataFrame:
     return option_chain
 
 
-def binom_option_data(S, type_: str) -> pd.DataFrame:
+def binom_option_data(S,
+                      type_: str,
+                      strike_step: float = 1.0,
+                      vol_range: Tuple[float, float, float] = (0.02, 1.02, 0.02),
+                      interest_range: Tuple[float, float, float] = (0.01, 0.11, 0.01),
+                      tau_range: Tuple[float, float, float] = (0.15, 1.1, 0.02)
+                      ) -> pd.DataFrame:
     """
     Generate the option data using the binomial tree model given the price of the underlying at time 0
 
     :param S: underlying price at time t=0
     :param type_: option's type: 'C' for a call 'P' for a put
+    :param strike_step:
+    :param vol_range:
+    :param interest_range:
+    :param tau_range:
     :return: pandas DataFrame containing the option data for different ranges  of params
     """
-    strikes, vols, interests, taus = params_ranges(S)
+    strikes, vols, interests, taus = params_ranges(
+        S,
+        strike_step,
+        vol_range,
+        interest_range,
+        tau_range
+    )
     option_data = pd.DataFrame(
         columns=['Price', 'Strike', 'Type', 'Vol', 'Interest Rate', 'Time to Expiration', 'Option Price'])
 
-    for X, sigma, r, T in product(strikes, vols, interests, taus):
-        price = bomp(S, X, T, r, sigma, int(np.floor(365 * T)), type_)
-        option_data = option_data.append(
-            {'Price': S, 'Strike': X, 'Type': type_, 'Vol': sigma, 'Interest Rate': r, 'Time to Expiration': T,
-             'Option Price': price}, ignore_index=True)
+    for sigma, r, T in product(vols, interests, taus):
+        opt_chain = generate_binom_option_chain(S, T, r, sigma, type_, strike_step=1.0)
+        option_data = option_data.append(opt_chain, ignore_index=True)
 
     return option_data
 
