@@ -8,3 +8,5 @@ data/
 test_pricing_models.ipynb
 
 tests/.pytest_cache
+
+pricing_models/__pycache__/

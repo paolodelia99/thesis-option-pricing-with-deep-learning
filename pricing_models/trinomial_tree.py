@@ -73,7 +73,6 @@ def topm(S, X, T, r, sigma, n: np.int, type_: str = "C"):
     delta_t = T / n
     up = exp(sigma * np.sqrt(2 * delta_t))
     down = 1 / up
-    m = 1
     p_up = ((exp(r * delta_t / 2) - exp(-sigma * sqrt(delta_t / 2))) / (
             exp(sigma * sqrt(delta_t / 2)) - exp(-sigma * sqrt(delta_t / 2)))) ** 2
     p_down = ((exp(sigma * sqrt(delta_t / 2)) - exp(r * (delta_t / 2))) / (
