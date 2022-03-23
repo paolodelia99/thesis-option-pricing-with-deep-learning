@@ -158,7 +158,6 @@ def trinomial_option_data(S,
     :param interest_range: (start_vol, end_vol, step_vol) for the volatility range
     :param tau_range: (start_vol, end_vol, step_vol) for the volatility range
     :return: pandas DataFrame containing the option data for different ranges  of params
-    :return: pandas DataFrame containing the option data for different ranges  of params
     """
     strikes, vols, interests, taus = params_ranges(
         S,
@@ -254,18 +253,29 @@ def mc_option_chain_heston(S, T, r, kappa,
     return option_chain
 
 
-def mc_option_data_geo(S, n: int, type_: str):
+def mc_option_data_geo(
+        S,
+        n: int,
+        type_: str,
+        strike_step: float = 1.0,
+        vol_range: Tuple[float, float, float] = (0.1, 1.1, 0.1),
+        interest_range: Tuple[float, float, float] = (0.01, 0.11, 0.01),
+        tau_range: Tuple[float, float, float] = (0.15, 1.1, 0.02)):
     """
     Generate the option data using the trinomial tree model given the price of the underlying at time 0
 
     :param S: underlying price at time t=0
     :param n: number of simulations
     :param type_: option's type: 'C' for a call 'P' for a put
+    :param vol_range: (start_vol, end_vol, step_vol) for the volatility range
+    :param interest_range: (start_vol, end_vol, step_vol) for the volatility range
+    :param tau_range: (start_vol, end_vol, step_vol) for the volatility range
     :return: pandas DataFrame containing the option data for different ranges  of params
     """
     strikes, vols, interests, taus = params_ranges(S,
-                                                   interest_range=(0.025, 0.03, 0.05),
-                                                   vol_range=(0.1, 1.0, 0.1))
+                                                   vol_range=vol_range,
+                                                   interest_range=interest_range,
+                                                   tau_range=tau_range)
     option_data = pd.DataFrame(
         columns=['Price', 'Strike', 'Type', 'Vol', 'Interest Rate', 'Time to Expiration', 'Option Price'])
 
