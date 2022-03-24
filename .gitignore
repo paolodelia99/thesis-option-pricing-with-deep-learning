@@ -1,6 +1,7 @@
 results/
 
 data/
+models/
 
 .ipynb_checkpoints/
 .idea/
