@@ -27,7 +27,7 @@ def params_ranges(S,
     :param tau_range: (start_vol, end_vol, step_vol) for the volatility range
     :return: (strike_range, volatility_range, interest_rates_range, time_to_expiration_range)
     """
-    strikes = np.arange(S - S // 3, S * 2 + 1, strike_step)
+    strikes = np.arange(S // 2, S + (S // 2) + 1, strike_step)
     vols = np.arange(vol_range[0], vol_range[1], vol_range[2])
     interests = np.arange(interest_range[0], interest_range[1], interest_range[2])
     taus = np.arange(tau_range[0], tau_range[1], tau_range[2])
@@ -117,7 +117,7 @@ def generate_trinom_option_chain(S, T, r, sigma, type_: str, strike_step:float =
     :return: pandas DataFrame containing the option chain
     """
     n = int(np.floor(365 * T))
-    strikes = np.arange(S // 2, S * 2 + 1, strike_step)
+    strikes = np.arange(S // 2, S + (S // 2) + 1, strike_step)
     option_chain = pd.DataFrame(
         columns=['Price', 'Strike', 'Type', 'Vol', 'Interest Rate', 'Time to Expiration', 'Option Price'])
 

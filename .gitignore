@@ -1,6 +1,6 @@
 results/
 
-data/
+data/*.csv
 models/
 
 .ipynb_checkpoints/
