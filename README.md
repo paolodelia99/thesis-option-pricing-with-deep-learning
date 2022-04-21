@@ -1,12 +1,33 @@
 # Option pricing with Deep Learning
 
+Option pricing has always been an hard problem in computational finance. With 
+my Bachelor Thesis Project I've tackled this particular problem with the use of 
+Neural Networks. 
 
+Neural Nets are known to be universal function approximators, so given enought data
+they could, theoretically, approximate anykind of function. Why we cannot apply the same reasoning 
+also to the world of Finance. Well, that's what I've tried to do.
 
-# Material that could be useful
+My works is focused on American Option, becuase the fact that they can be expired
+anytime before the time to expiration makes them trickier to price respect to the Europeans one.
 
-- [LSMC](https://github.com/simoncai519/LSMC/blob/master/LSMC.ipynb)
-- [Dynamic Hidden Layers Pytorch](https://stackoverflow.com/questions/62937388/pytorch-dynamic-amount-of-layers)
-- [Residual Connection in Pytorch](https://stackoverflow.com/questions/57229054/how-to-implement-my-own-resnet-with-torch-nn-sequential-in-pytorc)
+## Content
+
+- [Option & the Greeks notebook](notebooks/Options.ipynb)
+- Pricing models
+  - Binomial Model
+  - Trinomial Model
+  - [Heston model](notebooks/tff-lsmc-option-generator-heston-calls.ipynb)
+- HPO notebooks
+  - Bayesian Optimization Binomial/Trinomial dataset
+  - Bayesian Optimization Heston dataset
+
+## Quickstart
+
+Clone the repo
+
+    git clone https://github.com/paolodelia99/thesis-option-pricing-with-deep-learning.git
+
 
 
 # Author 
