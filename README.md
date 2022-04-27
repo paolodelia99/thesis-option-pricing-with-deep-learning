@@ -13,14 +13,14 @@ anytime before the time to expiration makes them trickier to price respect to th
 
 ## Content
 
-- [Option & the Greeks notebook](notebooks/Options.ipynb)
+- [Option & the Greeks](notebooks/Options.ipynb)
 - Pricing models
-  - Binomial Model
-  - Trinomial Model
-  - [Heston model](notebooks/tff-lsmc-option-generator-heston-calls.ipynb)
+  - [Binomial Model](pricing_models/bomp.py)
+  - [Trinomial Model](pricing_models/trinomial_tree.py)
+  - [Heston model with LSMC](notebooks/tff-lsmc-option-generator-heston-calls.ipynb)
 - HPO notebooks
-  - Bayesian Optimization Binomial/Trinomial dataset
-  - Bayesian Optimization Heston dataset
+  - [Bayesian Optimization Binomial/Trinomial dataset](notebooks/AX-HPO-binomial-trinomial.ipynb)
+  - [Bayesian Optimization Heston dataset](notebooks/AX-HPO-heston.ipynb)
 
 ## Quickstart
 
