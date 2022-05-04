@@ -14,3 +14,4 @@ pricing_models/__pycache__/
 
 /notebooks/Copia_di_Model_Testing_BinTri.ipynb
 /notebooks/Copia_di_Model_Testing_Heston.ipynb
+/notebooks/Finding_Greeks_with_Autodiff_BinTri.ipynb
