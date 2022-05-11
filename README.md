@@ -14,6 +14,7 @@ anytime before the time to expiration makes them trickier to price respect to th
 ## Content
 
 - [Option & the Greeks](notebooks/Options.ipynb)
+- [Option's trading strategies](notebooks/Options-Strategies.ipynb)
 - Pricing models
   - [Binomial Model](pricing_models/bomp.py)
   - [Trinomial Model](pricing_models/trinomial_tree.py)
@@ -21,6 +22,12 @@ anytime before the time to expiration makes them trickier to price respect to th
 - HPO notebooks
   - [Bayesian Optimization Binomial/Trinomial dataset](notebooks/AX-HPO-binomial-trinomial.ipynb)
   - [Bayesian Optimization Heston dataset](notebooks/AX-HPO-heston.ipynb)
+  - [Bayesian Optimization on real option data]
+- [IV Surface Notebook](notebooks/Finding_IV_Heston.ipynb)
+- Greeks Notebooks
+  - [Binomial/Trinomial Model Greeks](notebooks/Finding_the_option's_greeks_BinTri.ipynb)
+  - [Heston Model Greeks](notebooks/Finding_Greeks_with_Autodiff_Heston.ipynb)
+
 
 ## Quickstart
 
