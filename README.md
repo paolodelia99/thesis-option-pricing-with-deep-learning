@@ -8,7 +8,7 @@ Neural Nets are known to be universal function approximators, so given enought d
 they could, theoretically, approximate anykind of function. Why we cannot apply the same reasoning 
 also to the world of Finance. Well, that's what I've tried to do.
 
-My works is focused on American Option, becuase the fact that they can be expired
+My works is focused on American Option, because the fact that they can be expired
 anytime before the time to expiration makes them trickier to price respect to the Europeans one.
 
 ## Content
