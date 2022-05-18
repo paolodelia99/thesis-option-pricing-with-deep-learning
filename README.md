@@ -1,15 +1,16 @@
 # Option pricing with Deep Learning
 
-Option pricing has always been an hard problem in computational finance. With 
-my Bachelor Thesis Project I've tackled this particular problem with the use of 
-Neural Networks. 
+Nowadays, the increasing availability of data and access to computational resources is making the application of Deep Learning easier. Its application regards not only domains characterized by a high signal-to-noise ratio, but also other domains characterized by a higher uncertainty, such as the Financial sector.
 
-Neural Nets are known to be universal function approximators, so given enought data
-they could, theoretically, approximate anykind of function. Why we cannot apply the same reasoning 
-also to the world of Finance. Well, that's what I've tried to do.
+One of the most challenging problems in finance is the pricing of options.
+Given the competitiveness of a market-making environment, it is essential to quickly quote option prices coherently with an ever-changing market environment. Fixed parametric models do not respond to structural changes in the data like newer machine learning models do. This thesis proposes a data-driven approach to tackle this problem, leveraging the power of Artificial Neural Networks and Bayesian Optimization. 
 
-My works is focused on American Option, because the fact that they can be expired
-anytime before the time to expiration makes them trickier to price respect to the Europeans one.
+The programming language used for this work is Python with the support of Data science libraries such as NumPy, Pandas, Jupyter Notebook and PyTorch.  
+
+Finding the best hyperparameters for a model often involves tons of trials by hand or preliminary knowledge of experts, which can be efficient in selecting influential parameters and narrowing down the search space.   This can be avoided using a probabilistic hyperparameter optimization framework, such as Bayesian Optimization, which provides a robust configuration of the model's hyperparameters. 
+The resulting Neural Networks aren't only trained on data generated from well-known pricing models for American Options, but also on real market data, to fully prove that they can be considered universal function approximators, given enough training data.
+
+The numerical results apart from showing that the Neural Network pricer can approximate, with an excellent degree of accuracy, any given pricing model, show how the Deep learning model is sensitive to small variations of the input data. 
 
 ## Content
 
