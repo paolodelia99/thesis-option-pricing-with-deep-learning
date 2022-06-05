@@ -14,6 +14,13 @@ The resulting Neural Networks aren't only trained on data generated from well-kn
  > 
  > The numerical results apart from showing that the Neural Network pricer can approximate, with an excellent degree of accuracy, any given pricing model, show how the Deep learning model is sensitive to small variations of the input data. 
 
+---
+
+Here's an overview of how the whole process works:
+
+![img](assets/pro-thesis.png)
+
+
 ## Project Content
 
 - [Option & the Greeks](notebooks/Options.ipynb)
