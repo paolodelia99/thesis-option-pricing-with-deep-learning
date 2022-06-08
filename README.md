@@ -30,8 +30,8 @@ Here's an overview of how the whole process works:
   - [Trinomial Model](pricing_models/trinomial_tree.py)
   - [Heston model with LSMC](notebooks/tff-lsmc-option-generator-heston-calls.ipynb)
 - HPO notebooks
-  - [Bayesian Optimization Binomial/Trinomial dataset](notebooks/AX-HPO-binomial-trinomial.ipynb)
-  - [Bayesian Optimization Heston dataset](notebooks/AX-HPO-heston.ipynb)
+  - [Bayesian Optimization Binomial/Trinomial dataset](notebooks/AX_HPO_binomial_trinomial.ipynb)
+  - [Bayesian Optimization Heston dataset](notebooks/AX_HPO_heston.ipynb)
   - [Bayesian Optimization on real option data](notebooks/AX_HPO_real_data.ipynb)
 - Final Models
   - [Final Binomial-Trinomial Model](notebooks/Final-Model-BinTri.ipynb)
