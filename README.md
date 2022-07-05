@@ -18,7 +18,7 @@ The resulting Neural Networks aren't only trained on data generated from well-kn
 
 Here's an overview of how the whole process works:
 
-![img](assets/pro-thesis.png)
+![img](assets/preview-thesis.png)
 
 
 ## Project Content
