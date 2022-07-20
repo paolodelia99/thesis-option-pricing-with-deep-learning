@@ -16,10 +16,51 @@ The resulting Neural Networks aren't only trained on data generated from well-kn
 
 ---
 
+If you're interested to the thesis, here's the [full thesis](https://paolodelia99.github.io/Bachelor_Thesis.pdf) and the [short presentation of the work](https://paolodelia99.github.io/thesis_presentation.pdf).
+
 Here's an overview of how the whole process works:
 
 ![img](assets/preview-thesis.png)
 
+
+## Architecture
+
+The model architecture decided to use is a fully connected neural network with a residual 
+connection every two layers. Residual connections have been added because they help to 
+preserve the magnitude of the gradient across layers ([Alireza Zaeemzadeh, Nazanin Rahnavard e Mubarak Shah.](https://arxiv.org/abs/1805.07477.pdf)).
+
+![res_example](assets/fcn_res_example.png)
+
+## Bayesian Optimization
+
+[Bayesian Optimization](https://arxiv.org/abs/1807.02811.pdf) (**BO**) has been used as a hyperparameter optimization algorithm because 
+it provides a sequential probabilistic framework that balances exploration and exploitation. This property, most of the time, allows getting not only a suitable configuration 
+of the hyperparameters but also a robust configuration.
+
+The following table shows the hyperparamters to optimize during the HPO phase:
+
+![hp-table](assets/hp_ranges.png)
+
+
+The strategy used is the following:
+
+- In the first 10 iterations of the optimization 10 casual model are generated (using a Sobol sequence)
+- while $n \le N$:
+  - the posterior probability distribution on  $f$ is updated using all available data
+  - a new point $x_n$ is sampled based on the acquisition function
+  - observe $y_n = f(x_n)$
+  - $n++$
+- return the best hyperparameter configuration
+
+Where $N$ is the maximum number of iterations, in my case is fixed to 50.
+
+## Data
+
+The data used to train the different nets is 
+
+- Binomial-Trinomial dataset: synthetic data generated using the binomial and trinomial models. 
+- Heston dataset: synthetic data generated using the Heston model.
+- Real Data: data about the option of 8 American stocks have been gathered for the months of April 2022 and May 2022.
 
 ## Project Content
 
